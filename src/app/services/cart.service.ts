@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CartItem, Product } from '../models/product.model';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CartService {
   private cartSubject = new BehaviorSubject<CartItem[]>([]);
   public cart$ = this.cartSubject.asObservable();
 
-  constructor() {
+  constructor(private storageService: StorageService) {
     this.loadCartFromStorage();
   }
 
@@ -86,13 +87,13 @@ export class CartService {
   }
 
   private saveCartToStorage(): void {
-    localStorage.setItem('cart', JSON.stringify(this.cartItems));
+    this.storageService.setItem('cart', this.cartItems);
   }
 
   private loadCartFromStorage(): void {
-    const savedCart = localStorage.getItem('cart');
+    const savedCart = this.storageService.getItem<CartItem[]>('cart');
     if (savedCart) {
-      this.cartItems = JSON.parse(savedCart);
+      this.cartItems = savedCart;
       this.cartSubject.next([...this.cartItems]);
     }
   }

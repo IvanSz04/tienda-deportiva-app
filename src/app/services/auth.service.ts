@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { StorageService } from './storage.service';
 
 export interface User {
   id: number;
@@ -16,7 +17,7 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor() {
+  constructor(private storageService: StorageService) {
     this.loadUserFromStorage();
   }
 
@@ -42,7 +43,7 @@ export class AuthService {
 
   logout(): void {
     this.currentUserSubject.next(null);
-    localStorage.removeItem('currentUser');
+    this.storageService.removeItem('currentUser');
   }
 
   isAuthenticated(): boolean {
@@ -55,14 +56,13 @@ export class AuthService {
 
   private setCurrentUser(user: User): void {
     this.currentUserSubject.next(user);
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.storageService.setItem('currentUser', user);
   }
 
   private loadUserFromStorage(): void {
-    const savedUser = localStorage.getItem('currentUser');
+    const savedUser = this.storageService.getItem<User>('currentUser');
     if (savedUser) {
-      const user = JSON.parse(savedUser);
-      this.currentUserSubject.next(user);
+      this.currentUserSubject.next(savedUser);
     }
   }
 }
