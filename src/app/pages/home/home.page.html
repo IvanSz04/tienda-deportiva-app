@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Tienda Deportiva</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1>Encuentra tu equipamiento deportivo</h1>
+      <p>Las mejores marcas al mejor precio</p>
+      <ion-button expand="block" (click)="goToProducts()">
+        Ver Productos
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- Categories Section -->
+  <div class="section">
+    <h2>Categorías</h2>
+    <div class="categories-grid">
+      <ion-card *ngFor="let category of categories" (click)="goToCategory(category)" class="category-card">
+        <ion-card-content>
+          <ion-icon name="shirt" size="large"></ion-icon>
+          <h3>{{ category }}</h3>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Featured Products Section -->
+  <div class="section">
+    <h2>Productos Destacados</h2>
+    
+    <div *ngIf="loading" class="loading-container">
+      <ion-spinner></ion-spinner>
+      <p>Cargando productos...</p>
+    </div>
+
+    <div *ngIf="!loading" class="products-grid">
+      <ion-card *ngFor="let product of featuredProducts" class="product-card">
+        <img [src]="product.image" [alt]="product.name" (click)="viewProduct(product)">
+        
+        <ion-card-content>
+          <h3 (click)="viewProduct(product)">{{ product.name }}</h3>
+          <p class="brand">{{ product.brand }}</p>
+          <div class="rating">
+            <ion-icon name="star" color="warning"></ion-icon>
+            <span>{{ product.rating }} ({{ product.reviews }})</span>
+          </div>
+          <div class="price-section">
+            <span class="price">${{ product.price | number:'1.0-0' }}</span>
+            <ion-button 
+              fill="solid" 
+              size="small" 
+              (click)="addToCart(product)"
+              [disabled]="!product.inStock">
+              <ion-icon name="bag-add" slot="icon-only"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+</ion-content>
