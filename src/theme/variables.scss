@@ -3,29 +3,29 @@
 
 /** Ionic CSS Variables **/
 :root {
-  /** primary **/
-  --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
+  /** primary - Sports Blue **/
+  --ion-color-primary: #1e88e5;
+  --ion-color-primary-rgb: 30, 136, 229;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #1976d2;
+  --ion-color-primary-tint: #42a5f5;
 
-  /** secondary **/
-  --ion-color-secondary: #3dc2ff;
-  --ion-color-secondary-rgb: 61, 194, 255;
+  /** secondary - Sports Orange **/
+  --ion-color-secondary: #ff6f00;
+  --ion-color-secondary-rgb: 255, 111, 0;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #36abe0;
-  --ion-color-secondary-tint: #50c8ff;
+  --ion-color-secondary-shade: #e65100;
+  --ion-color-secondary-tint: #ff8f00;
 
-  /** tertiary **/
-  --ion-color-tertiary: #5260ff;
-  --ion-color-tertiary-rgb: 82, 96, 255;
+  /** tertiary - Sports Green **/
+  --ion-color-tertiary: #4caf50;
+  --ion-color-tertiary-rgb: 76, 175, 80;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-  --ion-color-tertiary-shade: #4854e0;
-  --ion-color-tertiary-tint: #6370ff;
+  --ion-color-tertiary-shade: #388e3c;
+  --ion-color-tertiary-tint: #66bb6a;
 
   /** success **/
   --ion-color-success: #2dd36f;
@@ -74,4 +74,37 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+}
+
+/** Dark Theme **/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-color-primary: #42a5f5;
+    --ion-color-primary-rgb: 66, 165, 245;
+    --ion-color-primary-shade: #1976d2;
+    --ion-color-primary-tint: #64b5f6;
+
+    --ion-color-secondary: #ff8f00;
+    --ion-color-secondary-rgb: 255, 143, 0;
+    --ion-color-secondary-shade: #e65100;
+    --ion-color-secondary-tint: #ffa000;
+
+    --ion-background-color: #121212;
+    --ion-background-color-rgb: 18, 18, 18;
+    --ion-text-color: #ffffff;
+    --ion-text-color-rgb: 255, 255, 255;
+    --ion-card-background: #1e1e1e;
+  }
+}
+
+/** Custom Sports Theme Colors **/
+:root {
+  --sports-blue: #1e88e5;
+  --sports-orange: #ff6f00;
+  --sports-green: #4caf50;
+  --sports-red: #f44336;
+  --sports-purple: #9c27b0;
+  --sports-gray: #757575;
+  --sports-dark: #212121;
+  --sports-light: #fafafa;
 }

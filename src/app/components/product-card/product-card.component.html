@@ -1,0 +1,77 @@
+<ion-card class="product-card" [class.out-of-stock]="!product.inStock">
+  
+  <div class="product-image" (click)="onViewProduct()">
+    <img [src]="product.image" [alt]="product.name" loading="lazy">
+    
+    <!-- Out of Stock Badge -->
+    <div *ngIf="!product.inStock" class="stock-badge out-of-stock">
+      Agotado
+    </div>
+    
+    <!-- New Badge (if rating > 4.7) -->
+    <div *ngIf="product.rating > 4.7" class="stock-badge new">
+      ¡Nuevo!
+    </div>
+    
+    <!-- Favorite Button -->
+    <ion-button 
+      *ngIf="showFavorite"
+      fill="clear" 
+      class="favorite-btn"
+      (click)="onToggleFavorite(); $event.stopPropagation()">
+      <ion-icon 
+        [name]="isFavorite ? 'heart' : 'heart-outline'" 
+        [color]="isFavorite ? 'danger' : 'medium'">
+      </ion-icon>
+    </ion-button>
+  </div>
+  
+  <ion-card-content class="product-content">
+    
+    <!-- Brand -->
+    <div class="brand">{{ product.brand }}</div>
+    
+    <!-- Product Name -->
+    <h3 class="product-name" (click)="onViewProduct()">{{ product.name }}</h3>
+    
+    <!-- Category -->
+    <div class="category">{{ product.category }}</div>
+    
+    <!-- Rating -->
+    <div class="rating">
+      <div class="stars">
+        <ion-icon 
+          *ngFor="let star of getStarArray()" 
+          [name]="star ? 'star' : 'star-outline'"
+          [color]="star ? 'warning' : 'medium'">
+        </ion-icon>
+      </div>
+      <span class="rating-text">{{ product.rating }} ({{ product.reviews }})</span>
+    </div>
+    
+    <!-- Sizes (if available) -->
+    <div *ngIf="product.sizes.length > 0" class="sizes">
+      <span class="sizes-label">Tallas:</span>
+      <span class="sizes-list">{{ product.sizes.slice(0, 3).join(', ') }}<span *ngIf="product.sizes.length > 3">...</span></span>
+    </div>
+    
+    <!-- Price and Actions -->
+    <div class="price-section">
+      <div class="price">
+        <span class="currency">$</span>
+        <span class="amount">{{ product.price | number:'1.0-0' }}</span>
+      </div>
+      
+      <ion-button 
+        *ngIf="showAddToCart"
+        [disabled]="!product.inStock"
+        size="small"
+        (click)="onAddToCart()">
+        <ion-icon name="bag-add" slot="start"></ion-icon>
+        Agregar
+      </ion-button>
+    </div>
+    
+  </ion-card-content>
+  
+</ion-card>
