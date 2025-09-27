@@ -5,11 +5,16 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ionic serve",
+    "build": "ionic build",
+    "build:prod": "ionic build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
+    "serve": "ionic serve",
+    "android": "ionic capacitor run android",
+    "ios": "ionic capacitor run ios",
+    "sync": "ionic capacitor sync",
     "ionic:build": "ng build",
     "ionic:serve": "ng serve"
   },
@@ -64,5 +69,21 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.0.2"
   },
-  "description": "Aplicación híbrida para tienda de ropa deportiva"
+  "description": "Aplicación híbrida para tienda de ropa deportiva",
+  "author": {
+    "name": "Ivan Sz",
+    "email": "ivan@example.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IvanSz04/tienda-deportiva-app.git"
+  },
+  "keywords": [
+    "ionic",
+    "angular",
+    "ecommerce",
+    "sports",
+    "mobile",
+    "capacitor"
+  ]
 }

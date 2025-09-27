@@ -28,10 +28,11 @@
   </div>
 
   <!-- Loading -->
-  <div *ngIf="loading" class="loading-container">
-    <ion-spinner></ion-spinner>
-    <p>Cargando productos...</p>
-  </div>
+  <app-loading-skeleton 
+    *ngIf="loading" 
+    type="product" 
+    [count]="6">
+  </app-loading-skeleton>
 
   <!-- Products Grid -->
   <div *ngIf="!loading" class="products-container">
@@ -49,44 +50,13 @@
     </div>
 
     <!-- Products List -->
-    <div *ngIf="filteredProducts.length > 0" class="products-grid">
-      <ion-card *ngFor="let product of filteredProducts" class="product-card">
-        
-        <div class="product-image" (click)="viewProduct(product)">
-          <img [src]="product.image" [alt]="product.name">
-          <div *ngIf="!product.inStock" class="out-of-stock-badge">
-            Agotado
-          </div>
-        </div>
-        
-        <ion-card-content>
-          <h3 (click)="viewProduct(product)">{{ product.name }}</h3>
-          <p class="brand">{{ product.brand }}</p>
-          <p class="category">{{ product.category }}</p>
-          
-          <div class="rating">
-            <ion-icon name="star" color="warning"></ion-icon>
-            <span>{{ product.rating }} ({{ product.reviews }})</span>
-          </div>
-          
-          <div class="sizes" *ngIf="product.sizes.length > 0">
-            <span class="size-label">Tallas:</span>
-            <span class="sizes-list">{{ product.sizes.join(', ') }}</span>
-          </div>
-          
-          <div class="price-section">
-            <span class="price">${{ product.price | number:'1.0-0' }}</span>
-            <ion-button 
-              fill="solid" 
-              size="small" 
-              (click)="addToCart(product)"
-              [disabled]="!product.inStock">
-              <ion-icon name="bag-add" slot="start"></ion-icon>
-              Agregar
-            </ion-button>
-          </div>
-        </ion-card-content>
-      </ion-card>
+    <div *ngIf="filteredProducts.length > 0" class="responsive-grid">
+      <app-product-card 
+        *ngFor="let product of filteredProducts" 
+        [product]="product"
+        (addToCart)="addToCart($event)"
+        (viewProduct)="viewProduct($event)">
+      </app-product-card>
     </div>
   </div>
 
