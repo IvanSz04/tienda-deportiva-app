@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <div class="register-container">
+    <div class="logo-section">
+      <ion-icon name="fitness" size="large" color="primary"></ion-icon>
+      <h1>Únete a nosotros</h1>
+      <p>Crea tu cuenta y comienza a comprar</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      
+      <ion-item>
+        <ion-label position="stacked">Nombre completo</ion-label>
+        <ion-input 
+          type="text" 
+          formControlName="name"
+          placeholder="Tu nombre completo">
+        </ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input 
+          type="email" 
+          formControlName="email"
+          placeholder="tu@email.com">
+        </ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input 
+          [type]="showPassword ? 'text' : 'password'" 
+          formControlName="password"
+          placeholder="Mínimo 6 caracteres">
+        </ion-input>
+        <ion-button 
+          fill="clear" 
+          slot="end" 
+          (click)="togglePasswordVisibility()">
+          <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Confirmar contraseña</ion-label>
+        <ion-input 
+          [type]="showConfirmPassword ? 'text' : 'password'" 
+          formControlName="confirmPassword"
+          placeholder="Repite tu contraseña">
+        </ion-input>
+        <ion-button 
+          fill="clear" 
+          slot="end" 
+          (click)="toggleConfirmPasswordVisibility()">
+          <ion-icon [name]="showConfirmPassword ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched" 
+           class="error-message">
+        Las contraseñas no coinciden
+      </div>
+
+      <ion-button 
+        expand="block" 
+        type="submit" 
+        [disabled]="!registerForm.valid"
+        class="register-button">
+        Crear Cuenta
+      </ion-button>
+
+    </form>
+
+    <div class="login-section">
+      <p>¿Ya tienes cuenta?</p>
+      <ion-button fill="clear" (click)="goToLogin()">
+        Iniciar sesión
+      </ion-button>
+    </div>
+
+  </div>
+
+</ion-content>
