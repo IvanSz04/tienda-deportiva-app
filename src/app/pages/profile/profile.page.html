@@ -1,0 +1,92 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <!-- Not Logged In -->
+  <div *ngIf="!isLoggedIn" class="not-logged-in">
+    <ion-icon name="person-circle-outline" size="large"></ion-icon>
+    <h2>Inicia sesión</h2>
+    <p>Accede a tu cuenta para ver tu perfil y historial de compras</p>
+    <ion-button expand="block" (click)="goToLogin()">
+      Iniciar Sesión
+    </ion-button>
+  </div>
+
+  <!-- Logged In -->
+  <div *ngIf="isLoggedIn" class="profile-content">
+    
+    <!-- User Info -->
+    <div class="user-info">
+      <div class="avatar">
+        <ion-icon name="person-circle" size="large"></ion-icon>
+      </div>
+      <h2>{{ user?.name }}</h2>
+      <p>{{ user?.email }}</p>
+    </div>
+
+    <!-- Menu Options -->
+    <div class="menu-options">
+      
+      <ion-list>
+        <ion-item button (click)="showInfo('Mis Pedidos', 'Aquí podrás ver el historial de tus pedidos.')">
+          <ion-icon name="bag" slot="start"></ion-icon>
+          <ion-label>Mis Pedidos</ion-label>
+          <ion-icon name="chevron-forward" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item button (click)="showInfo('Favoritos', 'Guarda tus productos favoritos para comprar después.')">
+          <ion-icon name="heart" slot="start"></ion-icon>
+          <ion-label>Favoritos</ion-label>
+          <ion-icon name="chevron-forward" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item button (click)="showInfo('Direcciones', 'Administra tus direcciones de envío.')">
+          <ion-icon name="location" slot="start"></ion-icon>
+          <ion-label>Direcciones</ion-label>
+          <ion-icon name="chevron-forward" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item button (click)="showInfo('Métodos de Pago', 'Administra tus tarjetas y métodos de pago.')">
+          <ion-icon name="card" slot="start"></ion-icon>
+          <ion-label>Métodos de Pago</ion-label>
+          <ion-icon name="chevron-forward" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item button (click)="showInfo('Configuración', 'Personaliza tu experiencia en la app.')">
+          <ion-icon name="settings" slot="start"></ion-icon>
+          <ion-label>Configuración</ion-label>
+          <ion-icon name="chevron-forward" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item button (click)="showInfo('Ayuda', 'Encuentra respuestas a tus preguntas frecuentes.')">
+          <ion-icon name="help-circle" slot="start"></ion-icon>
+          <ion-label>Ayuda</ion-label>
+          <ion-icon name="chevron-forward" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item button (click)="showInfo('Acerca de', 'Tienda Deportiva v1.0.0\nDesarrollado con Ionic + Angular')">
+          <ion-icon name="information-circle" slot="start"></ion-icon>
+          <ion-label>Acerca de</ion-label>
+          <ion-icon name="chevron-forward" slot="end"></ion-icon>
+        </ion-item>
+      </ion-list>
+
+      <!-- Logout Button -->
+      <div class="logout-section">
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          color="danger"
+          (click)="logout()">
+          <ion-icon name="log-out" slot="start"></ion-icon>
+          Cerrar Sesión
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

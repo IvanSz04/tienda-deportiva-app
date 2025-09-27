@@ -1,0 +1,122 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Carrito de Compras</ion-title>
+    <ion-buttons slot="end" *ngIf="cartItems.length > 0">
+      <ion-button (click)="clearCart()">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <!-- Empty Cart -->
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <ion-icon name="bag-outline" size="large"></ion-icon>
+    <h2>Tu carrito está vacío</h2>
+    <p>Agrega algunos productos para comenzar</p>
+    <ion-button expand="block" (click)="goToProducts()">
+      Ver Productos
+    </ion-button>
+  </div>
+
+  <!-- Cart Items -->
+  <div *ngIf="cartItems.length > 0" class="cart-content">
+    
+    <!-- Cart Summary -->
+    <div class="cart-summary">
+      <h3>{{ itemCount }} artículo(s) en tu carrito</h3>
+    </div>
+
+    <!-- Cart Items List -->
+    <div class="cart-items">
+      <ion-card *ngFor="let item of cartItems" class="cart-item">
+        <div class="item-content">
+          
+          <div class="item-image">
+            <img [src]="item.product.image" [alt]="item.product.name">
+          </div>
+          
+          <div class="item-details">
+            <h3>{{ item.product.name }}</h3>
+            <p class="brand">{{ item.product.brand }}</p>
+            
+            <div class="item-options" *ngIf="item.selectedSize || item.selectedColor">
+              <span *ngIf="item.selectedSize" class="option">
+                Talla: {{ item.selectedSize }}
+              </span>
+              <span *ngIf="item.selectedColor" class="option">
+                Color: {{ item.selectedColor }}
+              </span>
+            </div>
+            
+            <div class="price-info">
+              <span class="unit-price">${{ item.product.price | number:'1.0-0' }} c/u</span>
+              <span class="subtotal">${{ getItemSubtotal(item) | number:'1.0-0' }}</span>
+            </div>
+          </div>
+          
+          <div class="item-actions">
+            <div class="quantity-controls">
+              <ion-button 
+                fill="clear" 
+                size="small"
+                (click)="updateQuantity(item, item.quantity - 1)"
+                [disabled]="item.quantity <= 1">
+                <ion-icon name="remove" slot="icon-only"></ion-icon>
+              </ion-button>
+              
+              <span class="quantity">{{ item.quantity }}</span>
+              
+              <ion-button 
+                fill="clear" 
+                size="small"
+                (click)="updateQuantity(item, item.quantity + 1)">
+                <ion-icon name="add" slot="icon-only"></ion-icon>
+              </ion-button>
+            </div>
+            
+            <ion-button 
+              fill="clear" 
+              color="danger" 
+              size="small"
+              (click)="removeItem(item)">
+              <ion-icon name="trash" slot="icon-only"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ion-card>
+    </div>
+
+    <!-- Cart Total -->
+    <div class="cart-total">
+      <ion-card>
+        <ion-card-content>
+          <div class="total-row">
+            <span class="label">Subtotal:</span>
+            <span class="amount">${{ total | number:'1.0-0' }}</span>
+          </div>
+          <div class="total-row">
+            <span class="label">Envío:</span>
+            <span class="amount">Gratis</span>
+          </div>
+          <hr>
+          <div class="total-row final-total">
+            <span class="label">Total:</span>
+            <span class="amount">${{ total | number:'1.0-0' }}</span>
+          </div>
+          
+          <ion-button 
+            expand="block" 
+            size="large"
+            (click)="checkout()"
+            class="checkout-button">
+            Proceder al Pago
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+</ion-content>
